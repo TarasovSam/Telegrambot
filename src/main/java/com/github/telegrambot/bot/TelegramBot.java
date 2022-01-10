@@ -1,16 +1,13 @@
 package com.github.telegrambot.bot;
 
-import com.github.telegrambot.command.Command;
 import com.github.telegrambot.command.CommandContainer;
 import com.github.telegrambot.service.SendBotMessageServiceImpl;
+import com.github.telegrambot.service.TelegramUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.util.Locale;
 
 import static com.github.telegrambot.command.CommandName.NO;
 
@@ -22,17 +19,19 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public static String COMMAND_PREFIX = "/";
 
-    private final CommandContainer commandContainer;
-
-    public TelegramBot() {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this));
-    }
-
     @Value("${bot.username}")
     private String username;
 
     @Value("${bot.token}")
     private String token;
+
+
+    private final CommandContainer commandContainer;
+
+    @Autowired
+    public TelegramBot(TelegramUserService telegramUserService) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
+    }
 
     @Override
     public String getBotUsername() {
@@ -56,22 +55,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             } else {
                 commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
             }
-
-            /*String chatId = update.getMessage().getChatId().toString();
-
-            SendMessage sm = new SendMessage();
-            sm.setChatId(chatId);
-            sm.setText(message);
-
-            try {
-                execute(sm);
-            } catch (TelegramApiException e) {
-                //todo add logging to the project.
-                e.printStackTrace();
-            }*/
         }
     }
-
 
 }
 
