@@ -16,3 +16,8 @@
 ## 0.4.0-SNAPSHOT
 
 *   TB-1: added repository layer
+
+## 0.5.0-SNAPSHOT
+
+*   TB-5: added ability to subscribe on group
+*   TB-6: added ability to get a list of group subscriptions.

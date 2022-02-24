@@ -12,7 +12,8 @@ public class StopCommand implements Command {
     private final SendBotMessageService sendBotMessageService;
     private final TelegramUserService telegramUserService;
 
-    public final static String STOP_MESSAGE = "Остановил все ваши подписки \uD83D\uDE1F.";
+    public final static String STOP_MESSAGE = "Остановил все твои подписки \uD83D\uDE1F.\n" +
+            "Ты всегда можешь вернуться нажав /start";
 
     public StopCommand(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
         this.sendBotMessageService = sendBotMessageService;

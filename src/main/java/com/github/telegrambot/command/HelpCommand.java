@@ -14,12 +14,17 @@ public class HelpCommand implements Command {
 
     public final static String HELP_MESSAGE = String.format("✨<b>Дотупные команды</b>✨\n\n"
 
-            + "<b>Начать\\закончить работу с ботом</b>\n"
+            + "Начать\\закончить работу с ботом:\n"
             + "%s - начать работу со мной\n"
             + "%s - приостановить работу со мной\n\n"
+
+            + "Работа с подписками на группы:\n"
+            + "%s - подписаться на группу статей\n"
+            + "%s - получить список групп, на которые подписан\n\n"
+
             + "%s - получить мою статистику использования\n"
             + "%s - получить помощь в работе со мной\n",
-        START.getCommandName(), STOP.getCommandName(), STAT.getCommandName(), HELP.getCommandName());
+        START.getCommandName(), STOP.getCommandName(), ADD_GROUP_SUB.getCommandName(), LIST_GROUP_SUB.getCommandName(), STAT.getCommandName(), HELP.getCommandName());
 
     public HelpCommand(SendBotMessageService sendBotMessageService) {
         this.sendBotMessageService = sendBotMessageService;
